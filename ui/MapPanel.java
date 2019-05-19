@@ -6,47 +6,39 @@ import java.util.Collection;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
-
 public class MapPanel extends JPanel {
   public static int NX = 30;
   public static int NY = 20;
   public static ArrayList accEdges = new ArrayList();
   Random rand = new Random();
   Tile tiles[][] = new Tile[NX][NY];
-
   public MapPanel(){
     this.setupAccEdges();
     this.createTiles();
     this.setBackground(Color.black);
     this.repaint();
   }
-
   @Override
   public void paintComponent(Graphics g) {
     super.paintComponent(g);
     this.paintTiles(g);
   }
-
   private void paintTiles(Graphics g) {
     Graphics2D g2d = (Graphics2D) g;
-    for(int i=0;i<NX;i++){
+    for(int i=0;i<NX;i++)
       for(int j=0;j<NY;j++){
         Tile t = (Tile) tiles[i][j];
         g2d.drawImage(t.getImage(),32*t.getX(), 32*t.getY(), this);
       }
-    }
   }
-
   private void createTiles() {
-    for(int i=0;i<NX;i++){
+    for(int i=0;i<NX;i++)
       for(int j=0;j<NY;j++){
         tiles[i][j] = new Tile(this.selectEdge(i,j));
         tiles[i][j].setX(i);
         tiles[i][j].setY(j);
       }
-    }
   }
-
   private Edge selectEdge(int i, int j) {
     System.out.print(i);
     System.out.println(j);
@@ -73,7 +65,6 @@ public class MapPanel extends JPanel {
     }while(keep);
     return e;
   }
-
   private void setupAccEdges(){
     accEdges.add(new Edge(0,0,0,0,0,0,0,0));
     // water
@@ -109,6 +100,5 @@ public class MapPanel extends JPanel {
     accEdges.add(new Edge(1,1,0,2,2,2,2,2));
     accEdges.add(new Edge(0,2,2,2,2,2,1,1));
     accEdges.add(new Edge(1,2,2,2,2,2,1,1));
-
   }
 }

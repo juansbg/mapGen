@@ -1,5 +1,4 @@
 package mapGen.domain;
-
 public class Edge {
   private int N;
   private int NE;
@@ -53,8 +52,7 @@ public class Edge {
   }
   public String getFullEdge(){
     StringBuilder sb = new StringBuilder();
-    sb.append(NW).append(N).append(NE).append(E).append(SE)
-      .append(S).append(SW).append(W);
+    sb.append(NW).append(N).append(NE).append(E).append(SE).append(S).append(SW).append(W);
     return sb.toString();
   }
 }

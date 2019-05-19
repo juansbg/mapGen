@@ -1,18 +1,15 @@
 package mapGen.domain;
 import java.awt.Image;
 import javax.swing.ImageIcon;
-
 public class Tile {
   private Edge  edge;
   private int   x;
   private int   y;
   public  Image tileImage;
-
   public Tile(Edge e){
     this.edge = e;
     tileImage = new ImageIcon(this.getPath()).getImage();
   }
-
   public void setPos(int x, int y){
     this.x=x;
     this.y=y;
@@ -31,9 +28,7 @@ public class Tile {
   }
   private String getPath(){
     StringBuilder sb = new StringBuilder();
-    sb.append("mapGen/resources/")
-      .append(edge.getFullEdge())
-      .append(".png");
+    sb.append("mapGen/resources/").append(edge.getFullEdge()).append(".png");
     System.out.println(sb.toString());
     return sb.toString();
   }
