@@ -7,8 +7,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
 public class MapPanel extends JPanel {
-  public static int NX = 30;
-  public static int NY = 20;
+  public static int NX = 100;
+  public static int NY = 100;
+  public static boolean moreWater = true;
+  public static boolean moreGrass = true;
   public static ArrayList accEdges = new ArrayList();
   Random rand = new Random();
   Tile tiles[][] = new Tile[NX][NY];
@@ -28,7 +30,7 @@ public class MapPanel extends JPanel {
     for(int i=0;i<NX;i++)
       for(int j=0;j<NY;j++){
         Tile t = (Tile) tiles[i][j];
-        g2d.drawImage(t.getImage(),32*t.getX(), 32*t.getY(), this);
+        g2d.drawImage(t.getImage(),32*t.getX()+mapGen.domain.Tile.changeX, 32*t.getY()+mapGen.domain.Tile.changeY, this);
       }
   }
   private void createTiles() {
@@ -40,9 +42,9 @@ public class MapPanel extends JPanel {
       }
   }
   private Edge selectEdge(int i, int j) {
-    System.out.print(i);
-    System.out.println(j);
-    Edge e = new Edge(0,0,0,0,0,0,0,0);
+    //System.out.print(i);
+    //System.out.println(j);
+    Edge e = new Edge(1,1,1,1,1,1,1,1);
     if(i!=0)
       if(tiles[i-1][j]!=null)
         e.setWest(tiles[i-1][j].getEdge().getEast());
@@ -100,5 +102,36 @@ public class MapPanel extends JPanel {
     accEdges.add(new Edge(1,1,0,2,2,2,2,2));
     accEdges.add(new Edge(0,2,2,2,2,2,1,1));
     accEdges.add(new Edge(1,2,2,2,2,2,1,1));
+    accEdges.add(new Edge(2,2,2,2,2,2,1,2));
+    accEdges.add(new Edge(2,2,1,1,1,2,2,2));
+    accEdges.add(new Edge(1,2,2,2,2,2,2,2));
+    accEdges.add(new Edge(2,2,2,2,1,1,1,2));
+    accEdges.add(new Edge(2,2,1,2,2,2,2,2));
+    accEdges.add(new Edge(2,2,2,2,1,2,2,2));
+    accEdges.add(new Edge(1,1,1,2,2,2,1,1));
+    accEdges.add(new Edge(1,1,1,1,1,2,2,2));
+    accEdges.add(new Edge(1,2,2,2,1,1,1,1));
+    accEdges.add(new Edge(2,2,1,1,1,1,1,2));
+    accEdges.add(new Edge(1,2,2,2,2,2,0,1));
+    accEdges.add(new Edge(0,0,0,2,1,1,1,2));
+    accEdges.add(new Edge(2,2,0,2,1,1,1,2));
+    accEdges.add(new Edge(1,1,1,2,0,0,0,2));
+    accEdges.add(new Edge(0,2,2,2,1,1,1,2));
+    accEdges.add(new Edge(1,1,1,2,0,2,2,2));
+    accEdges.add(new Edge(1,1,1,2,2,2,0,2));
+    accEdges.add(new Edge(2,2,1,1,0,2,2,2));
+    accEdges.add(new Edge(2,2,0,1,1,2,2,2));
+    accEdges.add(new Edge(1,2,2,2,0,0,0,1));
+    accEdges.add(new Edge(2,2,1,1,0,0,0,2));
+    accEdges.add(new Edge(0,0,1,1,1,1,1,2));
+    accEdges.add(new Edge(0,1,1,1,1,1,1,2));
+    accEdges.add(new Edge(1,2,2,2,0,0,0,2));
+    accEdges.add(new Edge(1,1,0,0,0,0,0,2));
+    if(moreWater)
+      for(int i = 0;i<10;i++)
+        accEdges.add(new Edge(1,1,1,1,1,1,1,1));
+    if(moreGrass)
+      for (int i = 0;i<15;i++)
+        accEdges.add(new Edge(0,0,0,0,0,0,0,0));
   }
 }

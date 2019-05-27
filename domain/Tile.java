@@ -5,6 +5,10 @@ public class Tile {
   private Edge  edge;
   private int   x;
   private int   y;
+  public static int changeX;
+  public static int changeY;
+  public static int movX = 0;
+  public static int movY = 0;
   public  Image tileImage;
   public Tile(Edge e){
     this.edge = e;
@@ -37,5 +41,9 @@ public class Tile {
   }
   public Edge getEdge(){
     return edge;
+  }
+  public static void move(){
+    changeX+=movX;
+    changeY+=movY;
   }
 }
