@@ -11,7 +11,8 @@ public class MapPanel extends JPanel {
   public static int NY = 100;
   public static boolean moreWater = true;
   public static boolean moreGrass = true;
-  public static ArrayList accEdges = new ArrayList();
+  private static final long serialVersionUID = 110999;
+  public static ArrayList<Edge> accEdges = new ArrayList<Edge>();
   Random rand = new Random();
   Tile tiles[][] = new Tile[NX][NY];
   public MapPanel(){
@@ -29,7 +30,7 @@ public class MapPanel extends JPanel {
     Graphics2D g2d = (Graphics2D) g;
     for(int i=0;i<NX;i++)
       for(int j=0;j<NY;j++){
-        Tile t = (Tile) tiles[i][j];
+        Tile t = tiles[i][j];
         g2d.drawImage(t.getImage(),32*t.getX()+mapGen.domain.Tile.changeX, 32*t.getY()+mapGen.domain.Tile.changeY, this);
       }
   }
@@ -54,7 +55,7 @@ public class MapPanel extends JPanel {
     boolean keep = true;
     int cnt = 0;
     do{
-      Edge pos = (Edge) accEdges.get(rand.nextInt(accEdges.size()));
+      Edge pos = accEdges.get(rand.nextInt(accEdges.size()));
       if((pos.getNorth()==e.getNorth())&&(pos.getWest()==e.getWest())){
         e = pos;
         keep = false;
@@ -127,6 +128,81 @@ public class MapPanel extends JPanel {
     accEdges.add(new Edge(0,1,1,1,1,1,1,2));
     accEdges.add(new Edge(1,2,2,2,0,0,0,2));
     accEdges.add(new Edge(1,1,0,0,0,0,0,2));
+    accEdges.add(new Edge(0,0,0,2,1,1,0,0));
+    accEdges.add(new Edge(0,0,0,0,0,1,1,2));
+    accEdges.add(new Edge(0,1,1,2,0,0,0,0));
+    accEdges.add(new Edge(0,0,0,2,2,2,1,1));
+    accEdges.add(new Edge(0,2,2,2,1,1,0,0));
+    accEdges.add(new Edge(0,2,1,2,2,2,0,0));
+    accEdges.add(new Edge(0,2,2,2,1,2,0,0));
+    accEdges.add(new Edge(1,2,0,0,0,2,2,2));
+    accEdges.add(new Edge(2,2,0,0,0,2,1,0));
+    accEdges.add(new Edge(2,2,0,0,0,1,1,2));
+    accEdges.add(new Edge(0,0,0,1,1,2,2,2));
+    accEdges.add(new Edge(0,0,0,2,1,2,2,2));
+    accEdges.add(new Edge(1,1,0,0,0,2,2,2));
+    accEdges.add(new Edge(1,2,2,2,2,2,0,1));
+    accEdges.add(new Edge(0,2,2,2,2,2,1,1));
+    accEdges.add(new Edge(2,2,1,1,0,2,2,2));
+    accEdges.add(new Edge(2,2,2,2,0,1,1,2));
+    accEdges.add(new Edge(2,2,2,2,1,1,0,2));
+    accEdges.add(new Edge(0,1,1,2,2,2,2,2));
+    accEdges.add(new Edge(1,1,0,2,2,2,2,2));
+    accEdges.add(new Edge(2,2,0,1,1,2,2,2));
+    accEdges.add(new Edge(0,2,1,1,1,2,0,0));
+    accEdges.add(new Edge(1,2,0,0,0,2,1,1));
+    accEdges.add(new Edge(1,2,0,0,0,2,1,1));
+    accEdges.add(new Edge(0,2,1,1,1,2,2,2));
+    accEdges.add(new Edge(1,2,2,2,0,2,1,1));
+    accEdges.add(new Edge(2,2,1,1,1,2,0,2));
+    accEdges.add(new Edge(1,0,0,2,1,1,1,1));
+    accEdges.add(new Edge(1,1,0,2,1,1,1,1));
+    accEdges.add(new Edge(1,2,0,0,1,1,1,1));
+    accEdges.add(new Edge(0,2,1,1,1,1,1,0));
+    accEdges.add(new Edge(1,1,1,1,1,2,0,0));
+    accEdges.add(new Edge(1,1,1,1,1,1,0,2));
+    accEdges.add(new Edge(1,2,0,1,1,1,1,1));
+    accEdges.add(new Edge(0,2,1,1,1,1,1,1));
+    accEdges.add(new Edge(1,1,1,1,1,0,0,2));
+    accEdges.add(new Edge(1,1,1,2,0,1,1,1));
+    accEdges.add(new Edge(1,1,1,0,0,2,1,1));
+    accEdges.add(new Edge(1,1,1,1,1,2,0,1));
+    accEdges.add(new Edge(1,1,1,2,0,0,1,1));
+    accEdges.add(new Edge(1,1,1,1,0,2,1,1));
+
+    accEdges.add(new Edge(0,0,0,0,0,1,1,0));
+    accEdges.add(new Edge(0,0,0,0,0,0,1,1));
+    accEdges.add(new Edge(0,0,0,1,1,0,0,0));
+    accEdges.add(new Edge(0,0,0,0,1,1,0,0));
+    accEdges.add(new Edge(0,0,1,1,0,0,0,0));
+    accEdges.add(new Edge(1,0,0,0,0,0,0,1));
+    accEdges.add(new Edge(0,1,1,0,0,0,0,0));
+    accEdges.add(new Edge(1,1,0,0,0,0,0,0));
+    accEdges.add(new Edge(0,0,0,0,0,2,1,1));
+    accEdges.add(new Edge(0,0,0,1,1,2,0,0));
+    accEdges.add(new Edge(1,2,0,0,0,0,0,1));
+    accEdges.add(new Edge(0,2,1,1,0,0,0,0));
+    accEdges.add(new Edge(1,2,2,2,1,1,0,1));
+    accEdges.add(new Edge(2,2,1,1,0,1,1,2));
+    accEdges.add(new Edge(0,0,2,2,1,0,0,0));
+    accEdges.add(new Edge(0,0,0,0,1,2,2,0));
+    accEdges.add(new Edge(0,0,0,0,2,2,1,0));
+    accEdges.add(new Edge(2,0,0,0,0,0,1,2));
+    accEdges.add(new Edge(0,1,1,2,2,2,1,1));
+    accEdges.add(new Edge(1,1,0,1,1,2,2,2));
+    accEdges.add(new Edge(1,2,2,0,0,0,0,0));
+    accEdges.add(new Edge(0,0,1,2,2,0,0,0));
+    accEdges.add(new Edge(1,0,0,0,0,0,2,2));
+    accEdges.add(new Edge(2,2,1,0,0,0,0,0));
+    accEdges.add(new Edge(0,2,2,2,2,2,1,0));
+    accEdges.add(new Edge(1,2,2,2,2,2,0,0));
+    accEdges.add(new Edge(2,2,0,0,1,2,2,2));
+    accEdges.add(new Edge(2,2,2,2,1,0,0,2));
+    accEdges.add(new Edge(1,0,0,2,2,2,2,2));
+    accEdges.add(new Edge(0,0,1,2,2,2,2,2));
+    accEdges.add(new Edge(2,2,1,0,0,2,2,2));
+    accEdges.add(new Edge(2,2,2,2,0,0,1,2));
+
     if(moreWater)
       for(int i = 0;i<10;i++)
         accEdges.add(new Edge(1,1,1,1,1,1,1,1));

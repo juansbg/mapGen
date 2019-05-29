@@ -55,4 +55,17 @@ public class Edge {
     sb.append(NW).append(N).append(NE).append(E).append(SE).append(S).append(SW).append(W);
     return sb.toString();
   }
+
+  @Override
+  public boolean equals(Object o){
+    boolean eq = false;
+    if(o instanceof Edge){
+      Edge e = (Edge) o;
+      if(this.getFullEdge().equals(e.getFullEdge()))
+        eq = true;
+    } else {
+      eq = super.equals(o);
+    }
+    return eq;
+  }
 }
