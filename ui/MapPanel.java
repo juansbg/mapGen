@@ -11,10 +11,15 @@ public class MapPanel extends JPanel {
   public static int NY = 100;
   public static boolean moreWater = true;
   public static boolean moreGrass = true;
+  private boolean buttons = true;
   private static final long serialVersionUID = 110999;
+  ButtonMap mbR = new ButtonMap(ButtonMap.RELOAD);
+  ButtonMap mbS = new ButtonMap(ButtonMap.SAVE);
+  ButtonMap mbL = new ButtonMap(ButtonMap.LOAD);
+  ButtonMap mbT = new ButtonMap(ButtonMap.TITLE);
   public static ArrayList<Edge> accEdges = new ArrayList<Edge>();
   Random rand = new Random();
-  Tile tiles[][] = new Tile[NX][NY];
+  Tile tiles[][] = new Tile[NX+4][NY];
   public MapPanel(){
     this.setupAccEdges();
     this.createTiles();
@@ -33,6 +38,16 @@ public class MapPanel extends JPanel {
         Tile t = tiles[i][j];
         g2d.drawImage(t.getImage(),32*t.getX()+mapGen.domain.Tile.changeX, 32*t.getY()+mapGen.domain.Tile.changeY, this);
       }
+    if(buttons){
+      Tile t1 = tiles[NX][NY-1];
+      Tile t2 = tiles[NX+1][NY-1];
+      Tile t3 = tiles[NX+2][NY-1];
+      Tile t4 = tiles[NX+3][NY-1];
+      g2d.drawImage(t1.getImage(),this.getSize().width / 2 -60,this.getSize().height -50, this);
+      g2d.drawImage(t2.getImage(),this.getSize().width / 2 -20,this.getSize().height -50, this);
+      g2d.drawImage(t3.getImage(),this.getSize().width / 2 +20,this.getSize().height -50, this);
+      g2d.drawImage(t4.getImage(),this.getSize().width -150,20, this);
+    }
   }
   private void createTiles() {
     for(int i=0;i<NX;i++)
@@ -41,6 +56,10 @@ public class MapPanel extends JPanel {
         tiles[i][j].setX(i);
         tiles[i][j].setY(j);
       }
+    tiles[NX][NY-1]   = (Tile) mbR;
+    tiles[NX+1][NY-1] = (Tile) mbS;
+    tiles[NX+2][NY-1] = (Tile) mbL;
+    tiles[NX+3][NY-1] = (Tile) mbT;
   }
   private Edge selectEdge(int i, int j) {
     //System.out.print(i);
@@ -61,7 +80,7 @@ public class MapPanel extends JPanel {
         keep = false;
       }
       if(cnt>=10000){
-        e = new Edge(0,0,0,0,0,0,0,0);
+        e = new Edge(1,1,1,1,1,1,1,1);
         keep=false;
       }
       cnt++;
@@ -72,7 +91,7 @@ public class MapPanel extends JPanel {
     accEdges.add(new Edge(0,0,0,0,0,0,0,0));
     // water
     accEdges.add(new Edge(0,0,0,0,0,1,1,1));
-    //accEdges.add(new Edge(0,0,0,1,1,1,0,0));
+    accEdges.add(new Edge(0,0,0,1,1,1,0,0));
     accEdges.add(new Edge(0,0,0,1,1,1,1,1));
     accEdges.add(new Edge(0,1,1,1,1,1,1,1));
     accEdges.add(new Edge(0,1,1,1,1,1,0,0));
@@ -83,7 +102,7 @@ public class MapPanel extends JPanel {
     accEdges.add(new Edge(1,1,1,1,0,1,1,1));
     accEdges.add(new Edge(1,1,1,1,1,1,0,1));
     accEdges.add(new Edge(1,1,1,1,1,1,1,1));
-    // sand
+    // sandç
     accEdges.add(new Edge(0,0,0,2,2,2,0,0));
     accEdges.add(new Edge(0,0,0,2,2,2,2,2));
     accEdges.add(new Edge(0,2,2,2,0,0,0,0));
@@ -120,7 +139,7 @@ public class MapPanel extends JPanel {
     accEdges.add(new Edge(0,2,2,2,1,1,1,2));
     accEdges.add(new Edge(1,1,1,2,0,2,2,2));
     accEdges.add(new Edge(1,1,1,2,2,2,0,2));
-    //accEdges.add(new Edge(2,2,1,1,0,2,2,2));
+    accEdges.add(new Edge(2,2,1,1,0,2,2,2));
     accEdges.add(new Edge(2,2,0,1,1,2,2,2));
     accEdges.add(new Edge(1,2,2,2,0,0,0,1));
     accEdges.add(new Edge(2,2,1,1,0,0,0,2));
@@ -166,7 +185,7 @@ public class MapPanel extends JPanel {
     accEdges.add(new Edge(1,1,1,1,1,0,0,2));
     accEdges.add(new Edge(1,1,1,2,0,1,1,1));
     accEdges.add(new Edge(1,1,1,0,0,2,1,1));
-    //accEdges.add(new Edge(1,1,1,1,1,2,0,1));
+    accEdges.add(new Edge(1,1,1,1,1,2,0,1));
     accEdges.add(new Edge(1,1,1,2,0,0,1,1));
     accEdges.add(new Edge(1,1,1,1,0,2,1,1));
 

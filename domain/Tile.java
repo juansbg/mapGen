@@ -37,6 +37,9 @@ public class Tile {
   public Image getImage(){
     return tileImage;
   }
+  public void setImage(ImageIcon im){
+    this.tileImage = im.getImage();
+  }
   public Edge getEdge(){
     return edge;
   }
@@ -64,7 +67,7 @@ public class Tile {
       }
     }
     sb.append(".png");
-    System.out.println(sb.toString());
+    //System.out.println(sb.toString());
     return sb.toString();
   }
 }

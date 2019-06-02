@@ -9,8 +9,9 @@ public class JMap extends JFrame {
   MapPanel mp = new MapPanel();
   private static final long serialVersionUID = 100999;
   public JMap(){
+    this.setLayout(new BorderLayout());
     this.configurarJFrame();
-    this.add(mp);
+    this.add(mp,BorderLayout.CENTER);
     this.newAL();
     this.setVisible(true);
   }
@@ -28,6 +29,16 @@ public class JMap extends JFrame {
   }
 
   private void newAL(){
+    /*
+    this.addComponentListener(new ComponentAdapter() {
+      @Override
+      public void componentResized(ComponentEvent evt) {
+        JPanel c = (JPanel) evt.getSource();
+        //new java.awt.FlowLayout(FlowLayout.CENTER, 0, c.getSize().height / 2 - bd.height / 2));
+        mb.setX(JMap.this.getSize().width /2);
+        mb.setY(JMap.this.getSize().height -20);
+      }
+    });*/
     this.addKeyListener(new KeyAdapter(){
       @Override
       public void keyReleased(KeyEvent e) {
