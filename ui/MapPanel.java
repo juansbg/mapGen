@@ -9,10 +9,14 @@ import java.util.Random;
 public class MapPanel extends JPanel {
   public static int NX = 100;
   public static int NY = 100;
+  private static int offsetR = 0;
+  private static int offsetS = 0;
+  private static int offsetL = 0;
   public static boolean moreWater = true;
   public static boolean moreGrass = true;
   private boolean buttons = true;
   private static final long serialVersionUID = 110999;
+  private static final int  time = 1;
   ButtonMap mbR = new ButtonMap(ButtonMap.RELOAD);
   ButtonMap mbS = new ButtonMap(ButtonMap.SAVE);
   ButtonMap mbL = new ButtonMap(ButtonMap.LOAD);
@@ -43,10 +47,14 @@ public class MapPanel extends JPanel {
       Tile t2 = tiles[NX+1][NY-1];
       Tile t3 = tiles[NX+2][NY-1];
       Tile t4 = tiles[NX+3][NY-1];
-      g2d.drawImage(t1.getImage(),this.getSize().width / 2 -60,this.getSize().height -50, this);
-      g2d.drawImage(t2.getImage(),this.getSize().width / 2 -20,this.getSize().height -50, this);
-      g2d.drawImage(t3.getImage(),this.getSize().width / 2 +20,this.getSize().height -50, this);
-      g2d.drawImage(t4.getImage(),this.getSize().width -150,20, this);
+      mbR.setPos(this.getSize().width / 2 -60,this.getSize().height -50);
+      mbS.setPos(this.getSize().width / 2 -20,this.getSize().height -50);
+      mbL.setPos(this.getSize().width / 2 +20,this.getSize().height -50);
+      mbT.setPos(this.getSize().width -150,20);
+      g2d.drawImage(t1.getImage(),t1.getX(),t1.getY()+offsetR,this);
+      g2d.drawImage(t2.getImage(),t2.getX(),t2.getY()+offsetS, this);
+      g2d.drawImage(t3.getImage(),t3.getX(),t3.getY()+offsetL, this);
+      g2d.drawImage(t4.getImage(),t4.getX(),t4.getY(), this);
     }
   }
   private void createTiles() {
@@ -87,6 +95,59 @@ public class MapPanel extends JPanel {
     }while(keep);
     return e;
   }
+  public void toggleHide(){
+    try{
+        for(int i=0;i<25;i++){
+          offsetR+=1;
+          Thread.sleep(time);
+          this.repaint();
+        }
+        for(int i=0;i<25;i++){
+          offsetR+=1;
+          offsetS+=1;
+          Thread.sleep(time);
+          this.repaint();
+        }
+        for(int i=0;i<25;i++){
+          offsetS+=1;
+          offsetL+=1;
+          Thread.sleep(time);
+          this.repaint();
+        }
+        for(int i=0;i<25;i++){
+          offsetL+=1;
+          Thread.sleep(time);
+          this.repaint();
+        }
+    } catch (Exception e) {}
+  }
+  public void toggleShow(){
+    try{
+      for(int i=0;i<25;i++){
+        offsetR+=-1;
+        Thread.sleep(time);
+        this.repaint();
+      }
+      for(int i=0;i<25;i++){
+        offsetR+=-1;
+        offsetS+=-1;
+        Thread.sleep(time);
+        this.repaint();
+      }
+      for(int i=0;i<25;i++){
+        offsetS+=-1;
+        offsetL+=-1;
+        Thread.sleep(time);
+        this.repaint();
+      }
+      for(int i=0;i<25;i++){
+        offsetL+=-1;
+        Thread.sleep(time);
+        this.repaint();
+      }
+    }catch(Exception e) {}
+  }
+
   private void setupAccEdges(){
     accEdges.add(new Edge(0,0,0,0,0,0,0,0));
     // water

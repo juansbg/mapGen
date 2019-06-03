@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 
 public class JMap extends JFrame {
   MapPanel mp = new MapPanel();
+  private boolean hidden = false;
   private static final long serialVersionUID = 100999;
   public JMap(){
     this.setLayout(new BorderLayout());
@@ -16,16 +17,35 @@ public class JMap extends JFrame {
     this.setVisible(true);
   }
   public static void main(String[] args) {
-    new JMap();
+    JMap jmap = new JMap();
+    while(true)
+      jmap.check();
   }
 
   private void configurarJFrame(){
     this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     this.setTitle("Map Gen v0.5");
+    this.setMinimumSize(new Dimension(300,200));
     this.setSize(960,640);
     //this.setMinimumSize(new Dimension(800,550));
     this.setLocationRelativeTo(null);
     //this.setResizable(false);
+  }
+
+  public void check(){
+    Point pmouse = MouseInfo.getPointerInfo().getLocation();
+    Point pframe = this.getLocationOnScreen();
+    if(pmouse.y > pframe.y+this.getSize().height -80){
+      if(hidden){
+        mp.toggleShow();
+        hidden = false;
+      }
+    } else {
+      if(!hidden){
+        mp.toggleHide();
+        hidden = true;
+      }
+    }
   }
 
   private void newAL(){
