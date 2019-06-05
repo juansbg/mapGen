@@ -18,8 +18,12 @@ public class JMap extends JFrame {
   }
   public static void main(String[] args) {
     JMap jmap = new JMap();
-    while(true)
+    while(true){
       jmap.check();
+      try{
+        Thread.sleep(1);
+      } catch(Exception e){}
+    }
   }
 
   private void configurarJFrame(){
@@ -35,6 +39,7 @@ public class JMap extends JFrame {
   public void check(){
     Point pmouse = MouseInfo.getPointerInfo().getLocation();
     Point pframe = this.getLocationOnScreen();
+    mp.check(pmouse.x-pframe.x,pmouse.y-pframe.y);
     if(pmouse.y > pframe.y+this.getSize().height -80){
       if(hidden){
         mp.toggleShow();

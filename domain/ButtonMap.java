@@ -28,4 +28,28 @@ public class ButtonMap extends Tile {
     if(type==TITLE)
       this.setImage(title);
   }
+
+  public boolean checkPositioning(int x, int y){
+    boolean inPosition = false;
+    if(this.getX()<=x && (this.getX()+34)>=x){
+      if((this.getY()+34)<=y && (this.getY()+68)>=y){
+        inPosition = true;
+        if(type==RELOAD)
+          this.setImage(reloadG);
+        if(type==SAVE)
+          this.setImage(saveG);
+        if(type==LOAD)
+          this.setImage(loadG);
+      }
+    } else {
+      inPosition = false;
+      if(type==RELOAD)
+        this.setImage(reloadB);
+      if(type==SAVE)
+        this.setImage(saveB);
+      if(type==LOAD)
+        this.setImage(loadB);
+    }
+    return inPosition;
+  }
 }

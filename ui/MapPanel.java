@@ -95,6 +95,14 @@ public class MapPanel extends JPanel {
     }while(keep);
     return e;
   }
+  public void check(int x, int y){
+    if(mbR.checkPositioning(x,y))
+      this.repaint();
+    if(mbS.checkPositioning(x,y))
+      this.repaint();
+    if(mbL.checkPositioning(x,y))
+      this.repaint();
+  }
   public void toggleHide(){
     try{
         for(int i=0;i<25;i++){
