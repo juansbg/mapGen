@@ -3,10 +3,12 @@ import java.awt.*;
 import javax.swing.*;
 import mapGen.domain.*;
 import java.awt.event.KeyAdapter;
+import java.awt.event.MouseAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 
 public class JMap extends JFrame {
-  MapPanel mp = new MapPanel();
+  public MapPanel mp = new MapPanel();
   private boolean hidden = false;
   private static final long serialVersionUID = 100999;
   public JMap(){
@@ -20,6 +22,7 @@ public class JMap extends JFrame {
     JMap jmap = new JMap();
     while(true){
       jmap.check();
+      jmap.repaint();
       try{
         Thread.sleep(1);
       } catch(Exception e){}
@@ -39,7 +42,7 @@ public class JMap extends JFrame {
   public void check(){
     Point pmouse = MouseInfo.getPointerInfo().getLocation();
     Point pframe = this.getLocationOnScreen();
-    mp.check(pmouse.x-pframe.x,pmouse.y-pframe.y);
+    mp.check(pmouse.x-pframe.x,pmouse.y-pframe.y,false);
     if(pmouse.y > pframe.y+this.getSize().height -80){
       if(hidden){
         mp.toggleShow();
@@ -64,6 +67,15 @@ public class JMap extends JFrame {
         mb.setY(JMap.this.getSize().height -20);
       }
     });*/
+    this.addMouseListener(new MouseAdapter(){
+      @Override
+      public void mouseClicked(MouseEvent e){
+        Point pmouse = MouseInfo.getPointerInfo().getLocation();
+        Point pframe = JMap.this.getLocationOnScreen();
+        mp.check(pmouse.x-pframe.x,pmouse.y-pframe.y,true);
+      }
+    });
+
     this.addKeyListener(new KeyAdapter(){
       @Override
       public void keyReleased(KeyEvent e) {

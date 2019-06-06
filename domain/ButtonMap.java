@@ -8,13 +8,13 @@ public class ButtonMap extends Tile {
   public static final int LOAD = 3;
   public static final int TITLE = 4;
   int type;
-  ImageIcon reloadB = new ImageIcon("mapGen/resources/reload_B.png");
-  ImageIcon reloadG = new ImageIcon("mapGen/resources/reload_G.png");
-  ImageIcon saveB   = new ImageIcon("mapGen/resources/save_B.png");
-  ImageIcon saveG   = new ImageIcon("mapGen/resources/save_G.png");
-  ImageIcon loadB   = new ImageIcon("mapGen/resources/load_B.png");
-  ImageIcon loadG   = new ImageIcon("mapGen/resources/load_G.png");
-  ImageIcon title   = new ImageIcon("mapGen/resources/title.png");
+  static ImageIcon reloadB = new ImageIcon("mapGen/resources/reload_B.png");
+  static ImageIcon reloadG = new ImageIcon("mapGen/resources/reload_G.png");
+  static ImageIcon saveB   = new ImageIcon("mapGen/resources/save_B.png");
+  static ImageIcon saveG   = new ImageIcon("mapGen/resources/save_G.png");
+  static ImageIcon loadB   = new ImageIcon("mapGen/resources/load_B.png");
+  static ImageIcon loadG   = new ImageIcon("mapGen/resources/load_G.png");
+  static ImageIcon title   = new ImageIcon("mapGen/resources/title.png");
 
   public ButtonMap(int type){
     super(new Edge(3,3,3,3,3,3,3,3));
@@ -34,22 +34,28 @@ public class ButtonMap extends Tile {
     if(this.getX()<=x && (this.getX()+34)>=x){
       if((this.getY()+34)<=y && (this.getY()+68)>=y){
         inPosition = true;
-        if(type==RELOAD)
-          this.setImage(reloadG);
-        if(type==SAVE)
-          this.setImage(saveG);
-        if(type==LOAD)
-          this.setImage(loadG);
+        this.turnGray();
       }
     } else {
       inPosition = false;
-      if(type==RELOAD)
-        this.setImage(reloadB);
-      if(type==SAVE)
-        this.setImage(saveB);
-      if(type==LOAD)
-        this.setImage(loadB);
+      this.turnBlack();
     }
     return inPosition;
+  }
+  public void turnGray(){
+    if(type==RELOAD)
+      this.setImage(reloadG);
+    if(type==SAVE)
+      this.setImage(saveG);
+    if(type==LOAD)
+      this.setImage(loadG);
+  }
+  public void turnBlack(){
+    if(type==RELOAD)
+      this.setImage(reloadB);
+    if(type==SAVE)
+      this.setImage(saveB);
+    if(type==LOAD)
+      this.setImage(loadB);
   }
 }

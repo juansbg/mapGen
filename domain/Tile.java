@@ -43,6 +43,9 @@ public class Tile {
   public Edge getEdge(){
     return edge;
   }
+  public void setEdge(Edge e){
+    this.edge = e;
+  }
   public static void move(){
     changeX+=movX;
     changeY+=movY;

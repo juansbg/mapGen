@@ -12,18 +12,34 @@ public class MapPanel extends JPanel {
   private static int offsetR = 0;
   private static int offsetS = 0;
   private static int offsetL = 0;
+  private static int offset1 = 0;
+  private static int offset2 = 0;
+  private static int offset3 = 0;
+  private static int offset4 = 0;
+  private static int offset5 = 0;
+  private static int offset1x = 0;
+  private static int offset2x = 0;
+  private static int offset3x = 0;
+  private static int offset4x = 0;
+  private static int offset5x = 0;
   public static boolean moreWater = true;
   public static boolean moreGrass = true;
   private boolean buttons = true;
+  private boolean notOut = true;
   private static final long serialVersionUID = 110999;
   private static final int  time = 1;
   ButtonMap mbR = new ButtonMap(ButtonMap.RELOAD);
   ButtonMap mbS = new ButtonMap(ButtonMap.SAVE);
   ButtonMap mbL = new ButtonMap(ButtonMap.LOAD);
   ButtonMap mbT = new ButtonMap(ButtonMap.TITLE);
+  NumButton nb1 = new NumButton(NumButton.ONE);
+  NumButton nb2 = new NumButton(NumButton.TWO);
+  NumButton nb3 = new NumButton(NumButton.THREE);
+  NumButton nb4 = new NumButton(NumButton.FOUR);
+  NumButton nb5 = new NumButton(NumButton.FIVE);
   public static ArrayList<Edge> accEdges = new ArrayList<Edge>();
   Random rand = new Random();
-  Tile tiles[][] = new Tile[NX+4][NY];
+  Tile tiles[][] = new Tile[NX+9][NY];
   public MapPanel(){
     this.setupAccEdges();
     this.createTiles();
@@ -47,14 +63,29 @@ public class MapPanel extends JPanel {
       Tile t2 = tiles[NX+1][NY-1];
       Tile t3 = tiles[NX+2][NY-1];
       Tile t4 = tiles[NX+3][NY-1];
+      Tile t5 = tiles[NX+4][NY-1];
+      Tile t6 = tiles[NX+5][NY-1];
+      Tile t7 = tiles[NX+6][NY-1];
+      Tile t8 = tiles[NX+7][NY-1];
+      Tile t9 = tiles[NX+8][NY-1];
       mbR.setPos(this.getSize().width / 2 -60,this.getSize().height -50);
       mbS.setPos(this.getSize().width / 2 -20,this.getSize().height -50);
       mbL.setPos(this.getSize().width / 2 +20,this.getSize().height -50);
       mbT.setPos(this.getSize().width -150,20);
+      nb1.setPos(this.getSize().width / 2 -20,this.getSize().height -50);
+      nb2.setPos(this.getSize().width / 2 -20,this.getSize().height -50);
+      nb3.setPos(this.getSize().width / 2 -20,this.getSize().height -50);
+      nb4.setPos(this.getSize().width / 2 -20,this.getSize().height -50);
+      nb5.setPos(this.getSize().width / 2 -20,this.getSize().height -50);
       g2d.drawImage(t1.getImage(),t1.getX(),t1.getY()+offsetR,this);
-      g2d.drawImage(t2.getImage(),t2.getX(),t2.getY()+offsetS, this);
       g2d.drawImage(t3.getImage(),t3.getX(),t3.getY()+offsetL, this);
       g2d.drawImage(t4.getImage(),t4.getX(),t4.getY(), this);
+      g2d.drawImage(t5.getImage(),t5.getX()+offset1x,t5.getY()+offsetS+offset1, this);
+      g2d.drawImage(t6.getImage(),t6.getX()+offset2x,t6.getY()+offsetS+offset2, this);
+      g2d.drawImage(t7.getImage(),t7.getX()+offset3x,t7.getY()+offsetS+offset3, this);
+      g2d.drawImage(t8.getImage(),t8.getX()+offset4x,t8.getY()+offsetS+offset4, this);
+      g2d.drawImage(t9.getImage(),t9.getX()+offset5x,t9.getY()+offsetS+offset5, this);
+      g2d.drawImage(t2.getImage(),t2.getX(),t2.getY()+offsetS, this);
     }
   }
   private void createTiles() {
@@ -68,6 +99,11 @@ public class MapPanel extends JPanel {
     tiles[NX+1][NY-1] = (Tile) mbS;
     tiles[NX+2][NY-1] = (Tile) mbL;
     tiles[NX+3][NY-1] = (Tile) mbT;
+    tiles[NX+4][NY-1] = (Tile) nb1;
+    tiles[NX+5][NY-1] = (Tile) nb2;
+    tiles[NX+6][NY-1] = (Tile) nb3;
+    tiles[NX+7][NY-1] = (Tile) nb4;
+    tiles[NX+8][NY-1] = (Tile) nb5;
   }
   private Edge selectEdge(int i, int j) {
     //System.out.print(i);
@@ -95,11 +131,19 @@ public class MapPanel extends JPanel {
     }while(keep);
     return e;
   }
-  public void check(int x, int y){
-    if(mbR.checkPositioning(x,y))
+  public void check(int x, int y, boolean clicked){
+    if(mbR.checkPositioning(x,y)){
+      if(clicked)
+        this.createTiles();
       this.repaint();
-    if(mbS.checkPositioning(x,y))
+    }
+    if(mbS.checkPositioning(x,y)){
+      if(notOut)
+        this.toggleSpread();
       this.repaint();
+    } else if(!notOut){
+      this.toggleSpreadBack();
+    }
     if(mbL.checkPositioning(x,y))
       this.repaint();
   }
@@ -155,7 +199,70 @@ public class MapPanel extends JPanel {
       }
     }catch(Exception e) {}
   }
-
+  public void toggleSpread(){
+    notOut = false;
+    try{
+      for(int i=0;i<50;i++){
+        offset1+=-1;
+        offset2+=-1;
+        offset3+=-1;
+        offset4+=-1;
+        offset5+=-1;
+        Thread.sleep(time);
+        this.repaint();
+      }
+      for(int i=0;i<12;i++){
+        offset1x+=-4;
+        offset2x+=-2;
+        offset4x+=2;
+        offset5x+=4;
+        Thread.sleep(time);
+        this.repaint();
+      }
+      for(int i=0;i<38;i++){
+        offset1x+=-2;
+        offset2x+=-1;
+        offset4x+=1;
+        offset5x+=2;
+        Thread.sleep(time);
+        this.repaint();
+      }
+    } catch(Exception e){
+      e.printStackTrace();
+    }
+  }
+  public void toggleSpreadBack(){
+    notOut = true;
+    try{
+      for(int i=0;i<38;i++){
+        offset1x+=2;
+        offset2x+=1;
+        offset4x+=-1;
+        offset5x+=-2;
+        Thread.sleep(time);
+        this.repaint();
+      }
+      for(int i=0;i<12;i++){
+        offset1x+=4;
+        offset2x+=2;
+        offset4x+=-2;
+        offset5x+=-4;
+        Thread.sleep(time);
+        this.repaint();
+      }
+      for(int i=0;i<50;i++){
+        offset1+=1;
+        offset2+=1;
+        offset3+=1;
+        offset4+=1;
+        offset5+=1;
+        Thread.sleep(time);
+        this.repaint();
+      }
+    } catch(Exception e){
+      e.printStackTrace();
+    }
+  }
   private void setupAccEdges(){
     accEdges.add(new Edge(0,0,0,0,0,0,0,0));
     // water
